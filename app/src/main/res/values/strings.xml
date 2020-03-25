@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WallStreet Bets</string>
+    <string name="title_stocks">Stocks</string>
+    <string name="title_etfs">ETFs</string>
+    <string name="title_indices">Indices</string>
+
+
+</resources>

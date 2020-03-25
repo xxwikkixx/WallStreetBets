@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_stocks">
+
+    <fragment
+        android:id="@+id/navigation_stocks"
+        android:name="com.waqas.wallstreetbets.ui.stocks.HomeFragment"
+        android:label="@string/title_stocks"
+        tools:layout="@layout/fragment_stocks" />
+
+    <fragment
+        android:id="@+id/navigation_etfs"
+        android:name="com.waqas.wallstreetbets.ui.etfs.DashboardFragment"
+        android:label="@string/title_etfs"
+        tools:layout="@layout/fragment_etfs" />
+
+    <fragment
+        android:id="@+id/navigation_indicies"
+        android:name="com.waqas.wallstreetbets.ui.indicies.NotificationsFragment"
+        android:label="@string/title_indices"
+        tools:layout="@layout/fragment_indicies" />
+</navigation>
