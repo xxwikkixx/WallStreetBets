@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_stocks"
-        android:name="com.waqas.wallstreetbets.ui.stocks.HomeFragment"
+        android:name="com.waqas.wallstreetbets.ui.stocks.StocksFragment"
         android:label="@string/title_stocks"
         tools:layout="@layout/fragment_stocks" />
 
     <fragment
-        android:id="@+id/navigation_etfs"
-        android:name="com.waqas.wallstreetbets.ui.etfs.DashboardFragment"
-        android:label="@string/title_etfs"
-        tools:layout="@layout/fragment_etfs" />
+        android:id="@+id/navigation_indices"
+        android:name="com.waqas.wallstreetbets.ui.indices.IndicesFragment"
+        android:label="@string/title_indices"
+        tools:layout="@layout/fragment_indices" />
 
     <fragment
-        android:id="@+id/navigation_indicies"
-        android:name="com.waqas.wallstreetbets.ui.indicies.NotificationsFragment"
-        android:label="@string/title_indices"
-        tools:layout="@layout/fragment_indicies" />
+        android:id="@+id/navigation_etfs"
+        android:name="com.waqas.wallstreetbets.ui.etfs.EtfsFragment"
+        android:label="@string/title_etfs"
+        tools:layout="@layout/fragment_etfs" />
 </navigation>
