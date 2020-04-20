@@ -15,10 +15,6 @@
             app:title="@string/reply_title"
             app:useSimpleSummaryProvider="true" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/sync_header">
-
         <SwitchPreferenceCompat
             app:key="sync"
             app:title="@string/sync_title" />
