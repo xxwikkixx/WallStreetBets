@@ -1,34 +1,61 @@
-package com.waqas.wallstreetbets.ui;
+package com.waqas.wallstreetbets;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Model {
 
+    @SerializedName("ID")
     private Integer ID;
+    @SerializedName("Date_Inserted")
+    @Expose
     private Date Date_Inserted;
+    @SerializedName("Symbol")
     private String Symbol;
+    @SerializedName("Price")
     private Double Price;
+    @SerializedName("Type")
     private String Type;
+    @SerializedName("Strike")
     private Double Strike;
+    @SerializedName("Exp_Date")
     private Date Exp_Date;
+    @SerializedName("DTE")
     private Integer DTE;
+    @SerializedName("Bid")
     private Double Bid;
+    @SerializedName("Midpoint")
     private Double Midpoint;
+    @SerializedName("Ask")
     private Double Ask;
+    @SerializedName("Last")
     private Double Last;
+    @SerializedName("Volume")
     private Integer Volume;
+    @SerializedName("Open_Int")
     private Integer Open_Int;
+    @SerializedName("Vol_OI")
     private Double Vol_OI;
+    @SerializedName("IV")
     private Double IV;
+    @SerializedName("Time")
     private String Time;
 
+    public void setType(String type) {
+         Type = type;
+    }
 
     public Integer getID() {
         return ID;
     }
 
-    public Date getDate_Inserted() {
-        return Date_Inserted;
+    public String getDate_Inserted() {
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+        String date_inserted = sdf.format(Date_Inserted);
+        return date_inserted;
     }
 
     public String getSymbol() {
@@ -47,8 +74,10 @@ public class Model {
         return Strike;
     }
 
-    public Date getExp_Date() {
-        return Exp_Date;
+    public String getExp_Date() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM YYYY");
+        String expdate = sdf.format(Exp_Date);
+        return expdate;
     }
 
     public Integer getDTE() {
