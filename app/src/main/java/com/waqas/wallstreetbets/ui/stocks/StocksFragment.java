@@ -75,8 +75,8 @@ public class StocksFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface rInterface = retrofit.create(RequestInterface.class);
-        Call<List<Model>> call = rInterface.getAllData();
-
+        Call<List<Model>> call = rInterface.getStockData();
+//        This code allows the retrofit library to run on the background thread instead of the main.
         call.enqueue(new Callback<List<Model>>() {
             @Override
             public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {

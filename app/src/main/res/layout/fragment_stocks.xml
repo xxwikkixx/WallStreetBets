@@ -36,8 +36,6 @@
             android:text="Recommended" />
     </RadioGroup>
 
-
-
     <TextView
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
