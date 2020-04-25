@@ -37,6 +37,7 @@ public class EtfsFragment extends Fragment {
     DatePickerDialog picker;
     RecyclerView etfsRecycle;
     TextView dateText;
+    String date;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +49,16 @@ public class EtfsFragment extends Fragment {
         etfsRecycle = root.findViewById(R.id.recyclerStock);
         etfsRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
         etfsRecycle.setAdapter(new RetrofitAdapter(getContext(),models));
-        getEtfsResponse();
+//        getEtfsResponse();
+
+        if(savedInstanceState == null){
+            date = "2020-02-14";
+            getEtfsResponse(date);
+        }else{
+            date = savedInstanceState.getString("date");
+            dateText.setText(date);
+            getEtfsResponse(date);
+        }
 
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +71,9 @@ public class EtfsFragment extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                dateText.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                                dateText.setText(date);
+                                date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                                getEtfsResponse(date);
                             }
                         }, year, month, day);
                 picker.show();
@@ -69,13 +81,20 @@ public class EtfsFragment extends Fragment {
         });
         return root;
     }
-    private void getEtfsResponse(){
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("date", date);
+    }
+
+    private void getEtfsResponse(String date){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.205:5000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface rInterface = retrofit.create(RequestInterface.class);
-        Call<List<Model>> call = rInterface.getEtfData();
+        Call<List<Model>> call = rInterface.getEtfData(date);
 //        This code allows the retrofit library to run on the background thread instead of the main.
         call.enqueue(new Callback<List<Model>>() {
             @Override
@@ -85,7 +104,7 @@ public class EtfsFragment extends Fragment {
                 etfsRecycle.setAdapter(retrofitAdapter);
 
                 dateText.setText(models.get(0).getDate_Inserted().toString());
-                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
             }
 
             @Override

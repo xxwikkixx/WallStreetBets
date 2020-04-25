@@ -37,6 +37,7 @@ public class IndicesFragment extends Fragment {
     DatePickerDialog picker;
     RecyclerView indicesRecycle;
     TextView dateText;
+    String date;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +49,16 @@ public class IndicesFragment extends Fragment {
         indicesRecycle = root.findViewById(R.id.recyclerStock);
         indicesRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
         indicesRecycle.setAdapter(new RetrofitAdapter(getContext(),models));
-        getIndicesResponse();
+//        getIndicesResponse();
+
+        if(savedInstanceState == null){
+            date = "2020-02-14";
+            getIndicesResponse(date);
+        }else{
+            date = savedInstanceState.getString("date");
+            dateText.setText(date);
+            getIndicesResponse(date);
+        }
 
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +72,8 @@ public class IndicesFragment extends Fragment {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 dateText.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                                date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                                getIndicesResponse(date);
                             }
                         }, year, month, day);
                 picker.show();
@@ -70,13 +82,19 @@ public class IndicesFragment extends Fragment {
         return root;
     }
 
-    private void getIndicesResponse(){
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("date", date);
+    }
+
+    private void getIndicesResponse(String date){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.205:5000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface rInterface = retrofit.create(RequestInterface.class);
-        Call<List<Model>> call = rInterface.getIndicesData();
+        Call<List<Model>> call = rInterface.getIndicesData(date);
 //        This code allows the retrofit library to run on the background thread instead of the main.
         call.enqueue(new Callback<List<Model>>() {
             @Override
@@ -86,7 +104,7 @@ public class IndicesFragment extends Fragment {
                 indicesRecycle.setAdapter(retrofitAdapter);
 
                 dateText.setText(models.get(0).getDate_Inserted().toString());
-                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
             }
 
             @Override

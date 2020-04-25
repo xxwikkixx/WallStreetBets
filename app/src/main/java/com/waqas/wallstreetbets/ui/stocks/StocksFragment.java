@@ -34,6 +34,7 @@ public class StocksFragment extends Fragment {
     DatePickerDialog picker;
     RecyclerView stocksRecycle;
     TextView dateText;
+    String date;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,7 +47,16 @@ public class StocksFragment extends Fragment {
         stocksRecycle = root.findViewById(R.id.recyclerStock);
         stocksRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
         stocksRecycle.setAdapter(new RetrofitAdapter(getContext(),models));
-        getStocksResponse();
+//        getStocksResponse();
+
+        if(savedInstanceState == null){
+            date = "2020-02-14";
+            getStocksResponse(date);
+        }else{
+            date = savedInstanceState.getString("date");
+            dateText.setText(date);
+            getStocksResponse(date);
+        }
 
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +70,8 @@ public class StocksFragment extends Fragment {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 dateText.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                                date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                                getStocksResponse(date);
                             }
                         }, year, month, day);
                 picker.show();
@@ -69,13 +81,19 @@ public class StocksFragment extends Fragment {
         return root;
     }
 
-    private void getStocksResponse(){
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("date", date);
+    }
+
+    private void getStocksResponse(String date){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.205:5000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface rInterface = retrofit.create(RequestInterface.class);
-        Call<List<Model>> call = rInterface.getStockData();
+        Call<List<Model>> call = rInterface.getStockData(date);
 //        This code allows the retrofit library to run on the background thread instead of the main.
         call.enqueue(new Callback<List<Model>>() {
             @Override
@@ -85,7 +103,7 @@ public class StocksFragment extends Fragment {
                 stocksRecycle.setAdapter(retrofitAdapter);
 
                 dateText.setText(models.get(0).getDate_Inserted().toString());
-                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
             }
 
             @Override
