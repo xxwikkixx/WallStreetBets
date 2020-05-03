@@ -3,7 +3,7 @@
 
     <PreferenceCategory app:title="General UI">
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             app:key="themeColor"
             app:title="Change Light/Dark Mode" />
     </PreferenceCategory>
