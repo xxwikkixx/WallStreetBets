@@ -6,12 +6,16 @@
         <SwitchPreferenceCompat
             app:key="themeColor"
             app:title="Change Light/Dark Mode" />
+    </PreferenceCategory>
 
-        <Preference
-            app:key="logout"
-            app:title="Logout"/>
+    <PreferenceCategory
+        app:title="User Control" >
 
+    <Preference
+        app:key="logout"
+        app:title="Logout"/>
 
     </PreferenceCategory>
+
 
 </PreferenceScreen>
