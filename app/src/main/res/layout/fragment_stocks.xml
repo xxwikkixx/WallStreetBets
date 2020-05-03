@@ -9,16 +9,41 @@
     android:paddingTop="?attr/actionBarSize"
     android:orientation="vertical">
 <!--    android:paddingTop="?attr/actionBarSize"-->
+
+
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/recyclerStock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dateText"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Date:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="57dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="1"
+            android:background="?attr/colorControlHighlight"
+            android:ems="10"
+            android:hint="Enter Date"
+            android:inputType="date" />
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
@@ -34,21 +59,13 @@
             android:layout_weight="1"
             android:checked="false"
             android:text="Recommended" />
-    </RadioGroup>
 
-    <TextView
-        android:id="@+id/dateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="Enter Date"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerStock"
-        app:layout_constraintEnd_toStartOf="@+id/radioGroup"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+<!--        app:layout_constraintBottom_toTopOf="@+id/recyclerStock"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/radioGroup"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
+    </RadioGroup>
 
 
     <androidx.recyclerview.widget.RecyclerView
