@@ -49,8 +49,6 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
-
-
             Preference logout = getPreferenceManager().findPreference("logout");
             logout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
